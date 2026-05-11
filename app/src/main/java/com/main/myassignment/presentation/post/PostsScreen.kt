@@ -15,6 +15,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -35,17 +37,25 @@ import com.main.myassignment.presentation.theme.color.LocalAppExtendedColor
 @Composable
 fun PostsScreen(vm: PostViewModel = hiltViewModel()) {
     val state = vm.posts.collectAsStateWithLifecycle().value
+    val favorites by vm.favorites.collectAsStateWithLifecycle(initialValue = emptyList())
+    val favoriteIds = remember(favorites) { favorites.map { it.id }.toSet() }
+
     when (state) {
         is UiState.Loading -> {
             LoadingView()
         }
         is UiState.Success -> {
+            val postsWithFavoriteState = remember(state.data, favoriteIds) {
+                state.data.map { post ->
+                    post.copy(isFavorite = favoriteIds.contains(post.id))
+                }
+            }
             LazyColumn(
                 contentPadding = PaddingValues(12.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(
-                    items = state.data,
+                    items = postsWithFavoriteState,
                     key = { it.id }
                 ) { post ->
 
