@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.main.myassignment.core.customComponent.media.AppImage
@@ -72,7 +73,9 @@ fun AppTextField(
     variant: TextFieldVariant = TextFieldVariant.Outlined,
     onTrailingIconClick: (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    keyboardActions: KeyboardActions = KeyboardActions.Default
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None
+
 ) {
     // Use bodyRegular as default if textStyle is null
     val effectiveTextStyle = style.textStyle ?: AppTextStyle.bodyRegular()
@@ -99,6 +102,7 @@ fun AppTextField(
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         singleLine = style.singleLine,
+        visualTransformation = visualTransformation,
         maxLines = if (style.singleLine) 1 else style.maxLines,
         enabled = style.enabled,
         readOnly = style.readOnly,

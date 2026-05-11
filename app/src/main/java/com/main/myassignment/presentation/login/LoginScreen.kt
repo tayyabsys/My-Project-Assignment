@@ -5,6 +5,7 @@ import androidx.compose.runtime.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -122,6 +123,7 @@ fun LoginScreen(vm: LoginViewModel, onLoginSuccess: () -> Unit) {
                         backgroundColor = colors.backgroundSecondary,
                         textStyle = AppTextStyle.bodyRegular(colors.contentPrimary)
                     ),
+                    visualTransformation = PasswordVisualTransformation(), // 🔥 ADD THIS
                     modifier = Modifier.constrainAs(password) {
                         top.linkTo(email.bottom, margin = 16.dp)
                         start.linkTo(parent.start)
