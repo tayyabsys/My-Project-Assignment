@@ -34,7 +34,7 @@ import com.main.myassignment.core.customComponent.text.model.AppTextStyle
 import com.main.myassignment.core.customComponent.text.model.TextFieldVariant
 import com.main.myassignment.presentation.theme.color.LocalAppExtendedColor
 import com.main.myassignment.presentation.theme.dimens.sdp
-import qa.vodafone.myvodafone.revamp.core.ui.theme.AppTheme
+import com.main.myassignment.presentation.theme.AppTheme
 
 /**
  * A generic, reusable text field component that supports:

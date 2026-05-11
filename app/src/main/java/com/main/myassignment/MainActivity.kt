@@ -5,9 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.main.myassignment.core.util.SecureStorageManager
 import com.main.myassignment.presentation.navigation.AppEntryPoint
+import com.main.myassignment.presentation.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
-import com.main.myassignment.presentation.navigation.AppNavGraph
-import qa.vodafone.myvodafone.revamp.core.ui.theme.AppTheme
 import javax.inject.Inject
 
 @AndroidEntryPoint

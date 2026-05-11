@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.main.myassignment.core.util
 
 import android.content.Context
@@ -5,6 +7,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import androidx.core.content.edit
 
 object SecureStorage {
     private const val SECURE_PREFS_FILE = "secure_prefs"
@@ -39,16 +42,16 @@ object SecureStorage {
 
     // Generic method to save data
     fun <T> setValue(context: Context, key: String, value: T) {
-        val prefs = getSharedPreferences(context).edit()
-        when (value) {
-            is String -> prefs.putString(key, value)
-            is Int -> prefs.putInt(key, value)
-            is Boolean -> prefs.putBoolean(key, value)
-            is Float -> prefs.putFloat(key, value)
-            is Long -> prefs.putLong(key, value)
-            else -> throw IllegalArgumentException("Unsupported data type")
+        getSharedPreferences(context).edit {
+            when (value) {
+                is String -> putString(key, value)
+                is Int -> putInt(key, value)
+                is Boolean -> putBoolean(key, value)
+                is Float -> putFloat(key, value)
+                is Long -> putLong(key, value)
+                else -> throw IllegalArgumentException("Unsupported data type")
+            }
         }
-        prefs.apply()
     }
 
     // Generic method to retrieve data
@@ -66,6 +69,6 @@ object SecureStorage {
 
     // Clear all stored values securely
     fun clearAllKeychain(context: Context) {
-        getSharedPreferences(context).edit().clear().apply()
+        getSharedPreferences(context).edit { clear() }
     }
 }

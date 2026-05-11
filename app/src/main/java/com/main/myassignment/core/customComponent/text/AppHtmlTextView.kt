@@ -1,4 +1,4 @@
-package qa.vodafone.myvodafone.revamp.core.ui.components.text
+package com.main.myassignment.core.customComponent.text
 
 import android.widget.TextView
 import androidx.compose.runtime.Composable

@@ -19,7 +19,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
+
         packaging {
             resources {
                 excludes += setOf(
@@ -50,6 +52,14 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
+    }
+    defaultConfig {
+        buildConfigField(
+            "String",
+            "BASE_URL",
+            "\"https://jsonplaceholder.typicode.com/\""
+        )
     }
 }
 
@@ -92,6 +102,7 @@ dependencies {
     implementation(libs.constraintlayout.compose)
 
     testImplementation(libs.junit)
+    testImplementation(libs.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

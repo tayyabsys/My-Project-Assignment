@@ -9,7 +9,7 @@ fun AppEntryPoint(secureStorageManager: SecureStorageManager) {
     val isLoggedIn = secureStorageManager.getLoginSession()
     when (isLoggedIn) {
 
-        null , false-> {
+        false-> {
             // optional loading UI
             AppNavGraph(startDestination = "login")
         }

@@ -2,12 +2,10 @@ package com.main.myassignment.presentation.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -29,7 +27,7 @@ import com.main.myassignment.presentation.theme.color.LocalAppExtendedColor
 @Composable
 fun HomeScreen(postViewModel: PostViewModel = hiltViewModel(), onLogout: () -> Unit) {
     val colors = LocalAppExtendedColor.current
-    var selectedTab by remember { mutableStateOf(0) }
+    var selectedTab by remember { mutableIntStateOf(0) }
     val tabs = listOf("Posts", "Favorites")
 
     Scaffold(
@@ -91,10 +89,15 @@ fun HomeScreen(postViewModel: PostViewModel = hiltViewModel(), onLogout: () -> U
                 }
             }
 
-            // 📌 Screens
-            when (selectedTab) {
-                0 -> PostsScreen(postViewModel)
-                1 -> FavoritesScreen(postViewModel)
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxSize()
+            ) {
+                when (selectedTab) {
+                    0 -> PostsScreen(postViewModel)
+                    1 -> FavoritesScreen(postViewModel)
+                }
             }
         }
     }

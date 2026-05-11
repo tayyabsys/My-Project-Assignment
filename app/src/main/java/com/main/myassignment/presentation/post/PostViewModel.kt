@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PostViewModel@Inject constructor(
-    private val getPosts: GetPostsUseCase,
+    getPosts: GetPostsUseCase,
     private val getFavorites: GetFavoritesUseCase,
     private val toggleFavorite: ToggleFavoriteUseCase
 ) : BaseViewModel() {
@@ -60,6 +60,7 @@ class PostViewModel@Inject constructor(
 
     fun toggle(post: Post) {
         viewModelScope.launch {
+            val previous = _favorites.value
             _favorites.update { current ->
                 if (post.isFavorite) {
                     current.filterNot { it.id == post.id }
@@ -68,7 +69,11 @@ class PostViewModel@Inject constructor(
                     else listOf(post.copy(isFavorite = true)) + current
                 }
             }
-            toggleFavorite(post)
+            try {
+                toggleFavorite(post)
+            } catch (_: Exception) {
+                _favorites.value = previous
+            }
         }
     }
 }

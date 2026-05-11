@@ -1,11 +1,10 @@
-package qa.vodafone.myvodafone.revamp.core.ui.theme
+package com.main.myassignment.presentation.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import com.main.myassignment.presentation.theme.AppShapes
 import com.main.myassignment.presentation.theme.type.AppTypography
 import com.main.myassignment.presentation.theme.color.DarkAppExtendedColor
 import com.main.myassignment.presentation.theme.color.LightAppExtendedColor

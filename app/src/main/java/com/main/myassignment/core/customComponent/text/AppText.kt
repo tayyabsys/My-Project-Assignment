@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import com.main.myassignment.core.customComponent.text.model.AppTextStyle
@@ -24,7 +25,8 @@ fun AppText(
     fontWeight: FontWeight? = null,
     maxLines: Int = Int.MAX_VALUE,
     style: TextStyle = AppTextStyle.h2Regular(),
-    textAlign: TextAlign = TextAlign.Unspecified
+    textAlign: TextAlign = TextAlign.Unspecified,
+    ellipsis: Boolean = false
 ) {
     val finalStyle = style.copy(
         color = color ?: style.color,
@@ -38,7 +40,9 @@ fun AppText(
         style = finalStyle,
         modifier = modifier,
         textAlign = textAlign,
-        maxLines = maxLines
+        maxLines = maxLines,
+        overflow = if (ellipsis) TextOverflow.Ellipsis else TextOverflow.Clip
+
     )
 }
 

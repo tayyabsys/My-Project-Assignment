@@ -18,11 +18,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.main.myassignment.core.customComponent.LoadingView
 import com.main.myassignment.core.customComponent.media.AppImage
 import com.main.myassignment.core.customComponent.media.model.AppImageStyle
 import com.main.myassignment.core.customComponent.text.AppText
@@ -31,6 +31,8 @@ import com.main.myassignment.core.util.UiState
 import com.main.myassignment.domain.model.Post
 import androidx.compose.foundation.lazy.items
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.main.myassignment.core.customComponent.emptyview.EmptyView
+import com.main.myassignment.core.customComponent.loading.LoadingView
 import com.main.myassignment.presentation.theme.color.LocalAppExtendedColor
 
 
@@ -50,21 +52,26 @@ fun PostsScreen(vm: PostViewModel = hiltViewModel()) {
                     post.copy(isFavorite = favoriteIds.contains(post.id))
                 }
             }
-            LazyColumn(
-                contentPadding = PaddingValues(12.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(
-                    items = postsWithFavoriteState,
-                    key = { it.id }
-                ) { post ->
+            if (postsWithFavoriteState.isEmpty()) {
+                EmptyView(message = "No posts yet")
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    items(
+                        items = postsWithFavoriteState,
+                        key = { it.id }
+                    ) { post ->
 
-                    PostCard(
-                        post = post,
-                        onLikeClick = {
-                            vm.toggle(post)
-                        }
-                    )
+                        PostCard(
+                            post = post,
+                            onLikeClick = {
+                                vm.toggle(post)
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -100,7 +107,9 @@ fun PostCard(post: Post, onLikeClick: () -> Unit) {
 
                 AppText(
                     text = post.title,
-                    style = AppTextStyle.h5Bold(colors.contentPrimary)
+                    style = AppTextStyle.h5Bold(colors.contentPrimary),
+                    maxLines = 2,
+                    ellipsis = true
                 )
 
                 Spacer(Modifier.height(6.dp))
@@ -108,7 +117,8 @@ fun PostCard(post: Post, onLikeClick: () -> Unit) {
                 AppText(
                     text = post.body,
                     style = AppTextStyle.bodyRegular(colors.contentSecondary),
-                    maxLines = 3
+                    maxLines = 3,
+                    ellipsis = true
                 )
 
                 Spacer(Modifier.height(12.dp))

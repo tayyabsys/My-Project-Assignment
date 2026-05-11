@@ -1,6 +1,5 @@
 package com.main.myassignment.domain.repository
 
-import com.main.myassignment.data.local.entity.PostEntity
 import com.main.myassignment.domain.model.Post
 import kotlinx.coroutines.flow.Flow
 
