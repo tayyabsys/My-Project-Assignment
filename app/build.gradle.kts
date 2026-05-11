@@ -20,6 +20,20 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+        packaging {
+            resources {
+                excludes += setOf(
+                    "META-INF/INDEX.LIST",
+                    "META-INF/DEPENDENCIES",
+                    "META-INF/LICENSE",
+                    "META-INF/LICENSE.txt",
+                    "META-INF/NOTICE",
+                    "META-INF/NOTICE.txt",
+                    "META-INF/io.netty.versions.properties"
+
+                )
+            }
+        }
 
     buildTypes {
         release {
@@ -48,12 +62,35 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.hilt.navigation.compose)
 
     // Hilt
     implementation(libs.hilt.android)
+    implementation(libs.firebase.appdistribution.gradle)
     ksp(libs.hilt.compiler) // if using KSP
-    // kapt(libs.hilt.compiler) // if using KAPT instead
-    implementation(libs.hilt.navigation.compose)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+
+    // OkHttp
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+    implementation(libs.security.crypto)
+
+    // Coil
+    implementation(libs.coil)
+    implementation(libs.coil.svg)
+    implementation(libs.coil.gif)
+    implementation(libs.coil.compose)
+
+    // ConstraintLayout Compose
+    implementation(libs.constraintlayout.compose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
