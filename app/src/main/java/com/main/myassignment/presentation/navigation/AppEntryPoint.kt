@@ -1,17 +1,20 @@
 package com.main.myassignment.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.main.myassignment.core.util.SecureStorageManager
+import com.main.myassignment.presentation.login.LoginViewModel
 
 @Composable
-fun AppEntryPoint(secureStorageManager: SecureStorageManager) {
+fun AppEntryPoint(loginViewModel: LoginViewModel = hiltViewModel()) {
+    val isLoggedIn by loginViewModel.isLoggedIn.collectAsState()
 
-    val isLoggedIn = secureStorageManager.getLoginSession()
     when (isLoggedIn) {
-
         false-> {
             // optional loading UI
-            AppNavGraph(startDestination = "login")
+            AppNavGraph(startDestination = "login",loginViewModel)
         }
 
         true -> {
@@ -19,5 +22,6 @@ fun AppEntryPoint(secureStorageManager: SecureStorageManager) {
         }
 
 
+        else -> {}
     }
 }

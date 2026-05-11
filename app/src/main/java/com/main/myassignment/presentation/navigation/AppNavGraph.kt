@@ -1,6 +1,5 @@
 package com.main.myassignment.presentation.navigation
 
-import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.compose.*
@@ -8,11 +7,9 @@ import com.main.myassignment.presentation.home.HomeScreen
 import com.main.myassignment.presentation.login.LoginScreen
 import com.main.myassignment.presentation.login.LoginViewModel
 
-@SuppressLint("ViewModelConstructorInComposable")
 @Composable
-fun AppNavGraph(startDestination: String) {
+fun AppNavGraph(startDestination: String,loginViewModel: LoginViewModel = hiltViewModel()) {
     val nav = rememberNavController()
-    val loginViewModel = hiltViewModel<LoginViewModel>()
     NavHost(
         navController = nav,
         startDestination = startDestination

@@ -2,6 +2,8 @@ package com.main.myassignment.core.util
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class SecureStorageManager @Inject constructor(
@@ -31,10 +33,11 @@ class SecureStorageManager @Inject constructor(
     /**
      * Get Login session
      */
-    fun getLoginSession(): Boolean {
-        return SecureStorage.getValue(context, KEY_SAVE_LOGIN, false)
-    }
 
+
+    fun getLoginSession(): Flow<Boolean> = flow {
+        emit(SecureStorage.getValue(context, KEY_SAVE_LOGIN, false))
+    }
 
     /**
      * Clear all secure storage

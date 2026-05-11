@@ -11,13 +11,11 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject
-    lateinit var secureStorageManager: SecureStorageManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                AppEntryPoint(secureStorageManager)
+                AppEntryPoint()
             }
         }
     }

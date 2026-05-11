@@ -6,6 +6,8 @@ import com.main.myassignment.core.base.BaseViewModel
 import com.main.myassignment.core.util.SecureStorageManager
 import com.main.myassignment.core.util.isValidEmail
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 @HiltViewModel
@@ -14,6 +16,8 @@ class LoginViewModel @Inject constructor(private val secureStorageManager: Secur
 
     var email by mutableStateOf("")
     var password by mutableStateOf("")
+    val isLoggedIn = secureStorageManager.getLoginSession()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
     val isValid: Boolean
         get() = email.isValidEmail() && password.length in 8..15
